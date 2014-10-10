@@ -1,8 +1,19 @@
-// Syntax-matching regular expressions:
-var stringRegex     = /^'([^']*)'/,
-    numberRegex     = /^\d+\b/,
-    identifierRegex = /^[^\s(),']+/,
-    callRegex       = /^\(.+\)/;
+// Syntax-matching 'matchers' - I don't want to use regexes:
+var isString = function(str) {
+  return str[0] === "'" && str[str.length - 1] === "'";
+};
+
+var isNumber = function(str) {
+  return !isNaN(str);
+};
+
+var isIdentifier = function(str) {
+  for (var c in ["'",'(',')',',']) { return str.contains(c) ? false : true; }
+};
+
+var isCall = function(str) {
+  return str[0] === '(' && str[str.length - 1] === ')';
+};
 
 // Constant strings to print on certain errors
 var SYNTAX_ERROR = 'unrecognised syntax: ';
@@ -12,19 +23,19 @@ var parseExpr = function(expr) {
 
   var match, syntax; // syntax = element to go into AST
 
-  if ( match = stringRegex.exec(expr) ) {
+  if ( isString(expr) ) {
     syntax = { type: 'value', value: match[1] };
   }
 
-  else if ( match = numberRegex.exec(expr) ) {
-    syntax = { type: 'value', value: match[0] };
+  else if ( isNumber(expr) ) {
+    syntax = { type: 'value', value: Number(match[0]) };
   }
 
-  else if ( match = identifierRegex.exec(expr) ) {
+  else if ( isIdentifier(expr) ) {
     syntax = { type: 'identifier', value: match[0] };
   }
 
-  else if ( match = callRegex.exec(expr) ) {
+  else if ( isCall(expr) ) {
     return parseFunctionCall( expr );
   }
 
@@ -50,5 +61,5 @@ var parseFunctionCall = function(expr) {
 
   var syntax = { type: "call", operator: expr.split(" ")[0], args: [] };
   console.log(syntax);
-}
+};
 
