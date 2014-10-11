@@ -9,11 +9,9 @@ An enjoyable programming language.
 
 ## Token Types
 
-|------------|-----------------------------------------------------------------------------------------------|
 | Name       | Description                                                                                   |
 |------------|-----------------------------------------------------------------------------------------------|
 | String     | Starts with a single-quote, ends with a single-quote, doesn't contain any more single-quotes. |
 | Number     | Any literal integer.                                                                          |
 | Identifier | A word that doesn't contain quotes, brackets, or commas.                                      |
 | Call       | Text that starts with an open-parenthesis and ends with a close-parenthesis.                  |
-|------------|-----------------------------------------------------------------------------------------------|
