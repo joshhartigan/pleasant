@@ -21,8 +21,45 @@ least the language I want **pleasant** to become:
 fn doubleAndPrint = x ->
   print x
   return x * 2
+end
+
+y = doubleAndPrint 34
+print y
 ```
 
 It looks a bit like CoffeeScript. I haven't written much CoffeeScript, but I
 like the look of its syntax.
 
+## An Interpreting Program
+
+So if I want to write a program that gets the code snippet above, runs it, and
+shows the correct output --
+
+```
+>>> 34
+>>> 68
+```
+
+-- it will need to go through each line as a string, and 'parse' the line into a
+format that is readable by the interpreter. Take line 1, for example:
+
+`fn doubleAndPrint = x ->`
+
+To the parser, what do each of these words and symbols mean?
+
+1. `fn` - Define a function. Expects: A name, an equals sign, an argument
+   (optional), and an opening arrow (`->`).
+
+2. `doubleAndPrint` - Based off of the fact that the last token was `fn`,
+   `doubleAndPrint` must be the function name. Remember, the original `fn` is
+   still waiting for `=`, any argument/s, and `->`.
+
+3. `=` - Here marks where the function name ends, and the arguments begin, if
+   there are any.
+
+4. `x` - `x` is not `->`, and it is a grammatically-correct identifier,
+   therefore it must be an argument.
+
+5. `->` - This is not a grammatically-correct identifier. Is it `->`? Yes, it
+   is. That means the rest of the code up until the matching `end` will be
+   executed whenever `doubleAndPrint` is run.
