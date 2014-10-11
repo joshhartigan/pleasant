@@ -8,7 +8,12 @@ var isNumber = function(str) {
 };
 
 var isIdentifier = function(str) {
-  for (var c in ["'",'(',')',',']) { return str.contains(c) ? false : true; }
+  return !(
+    str.indexOf('(')  > -1 ||
+    str.indexOf(')')  > -1 ||
+    str.indexOf('\'') > -1 ||
+    str.indexOf(',')  > -1
+  );
 };
 
 var isCall = function(str) {
@@ -24,15 +29,15 @@ var parseExpr = function(expr) {
   var match, syntax; // syntax = element to go into AST
 
   if ( isString(expr) ) {
-    syntax = { type: 'value', value: match[1] };
+    syntax = { type: 'value', value: expr.substring(1, expr.length - 1) };
   }
 
   else if ( isNumber(expr) ) {
-    syntax = { type: 'value', value: Number(match[0]) };
+    syntax = { type: 'value', value: Number(expr) };
   }
 
   else if ( isIdentifier(expr) ) {
-    syntax = { type: 'identifier', value: match[0] };
+    syntax = { type: 'identifier', value: expr };
   }
 
   else if ( isCall(expr) ) {
@@ -42,6 +47,8 @@ var parseExpr = function(expr) {
   else {
     console.log(SYNTAX_ERROR + expr);
   }
+
+  console.log(syntax);
 
 };
 
@@ -62,4 +69,9 @@ var parseFunctionCall = function(expr) {
   var syntax = { type: "call", operator: expr.split(" ")[0], args: [] };
   console.log(syntax);
 };
+
+parseExpr("'hello my name is josh'");
+parseExpr("34534");
+parseExpr("foobar");
+parseExpr("(print hi)");
 
