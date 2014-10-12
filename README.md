@@ -30,18 +30,19 @@ print y
 It looks a bit like CoffeeScript. I haven't written much CoffeeScript, but I
 like the look of its syntax.
 
+
 ## An Interpreting Program
 
 So if I want to write a program that gets the code snippet above, runs it, and
-shows the correct output --
+shows the correct output &mdash;
 
 ```
 >>> 34
 >>> 68
 ```
 
--- it will need to go through each line as a string, and 'parse' the line into a
-format that is readable by the interpreter. Take line 1, for example:
+&mdash; it will need to go through each line as a string, and 'parse' the line into
+a format that is readable by the interpreter. Take line 1, for example:
 
 `fn doubleAndPrint = x ->`
 
@@ -63,3 +64,62 @@ To the parser, what do each of these words and symbols mean?
 5. `->` - This is not a grammatically-correct identifier. Is it `->`? Yes, it
    is. That means the rest of the code up until the matching `end` will be
    executed whenever `doubleAndPrint` is run.
+
+
+## Parsing Methods
+
+The interpreter needs to transform `fn doubleAndPrint = x ->` into an abstract
+syntax tree, which would probably look like this:
+
+![AST](http://i.imgur.com/etX4T6P.jpg)
+
+How can I make a program that does that?
+
+Here's a rules:
+
+- Function definition lines must be on their own lines.
+
+Therefore, if we look through some **pleasant** code and the first word of the
+line is `fn`, the interpreter knows it is a function definition.
+
+Let's see what the line of code would look like if it were split into multiple
+strings, via spaces:
+
+`['fn', 'doubleAndPrint', '=', '(x)', '->']`
+
+This looks good - it's pretty much what we're looking for. But what if there are
+multiple arguments, for example?
+
+`fn addTwoNumbers = (x y) ->`
+
+The line above would be split into the following array:
+
+`['fn', 'addTwoNumbers', '=', '(x', 'y)', '->']`
+
+There isn't really a problem here, other than the `'(x'` and `'y)'` thing. Could
+we tell the parser *All strings in between '=' and '->' should have their
+parentheses removed from them*? ... Kind of &mdash; we need to make sure the
+program doesn't throw up when there is a string between `'='` and `'->'` which
+doesn't have parentheses. This will happen when there are > 2 arguments:
+
+`['fn', 'addThreeNumbers', '=', '(x', 'y', 'z)', '->']`
+
+-------------------------------------------------------------------------------
+
+So, here's the 'rules' for parsing a function definition 'header' in **pleasant**:
+
+1. Refer to the line split into an array by spaces as `splitLine`.
+
+2. The first string of `splitLine` is `'fn'`. If it isn't, *syntax error.*
+
+3. The second string of `splitLine` should be a valid identifier. Store it as
+   the `name` property of the function.
+
+4. The third string should be an `=`, always.
+
+5. Until the string at the current position in `splitLine` is `'->'`, add the
+   current string as an element in the function's `args` property. If it has a
+   parenthesis in it, remove it.
+
+6. After the `->` string is where the logic of the function begins.
+
