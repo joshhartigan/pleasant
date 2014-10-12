@@ -123,3 +123,34 @@ So, here's the 'rules' for parsing a function definition 'header' in **pleasant*
 
 6. After the `->` string is where the logic of the function begins.
 
+Here's some pseudo-c-like-code that parses a **pleasant** function definition
+header:
+
+```
+function parseFunctionHeader(line) {
+  splitLine = line.split(' ');
+
+  if (
+    !(splitLine[0] && 'fn' && splitLine[2] == '=' && splitLine[last] == '->')
+  ) {
+    return false;
+  }
+
+  functionName = '';
+
+  if ( !isIdentifier( splitLine[1] ) ) {
+    return false;
+  } else {
+    functionName = splitLine[1];
+  }
+
+  arguments = [];
+  if (splitLine.length > 4) { // if there are any arguments:
+    for (i = 0; i < splitLine.length - 4; i++) {
+      arguments += splitLine[i].replace('(', '').replace(')', '');
+    }
+  }
+}
+```
+
+
