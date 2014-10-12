@@ -126,7 +126,7 @@ So, here's the 'rules' for parsing a function definition 'header' in **pleasant*
 Here's some pseudo-c-like-code that parses a **pleasant** function definition
 header:
 
-```
+```javascript
 function parseFunctionHeader(line) {
   splitLine = line.split(' ');
 
