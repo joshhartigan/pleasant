@@ -75,7 +75,7 @@ syntax tree, which would probably look like this:
 
 How can I make a program that does that?
 
-Here's a rules:
+Here's a rule:
 
 - Function definition lines must be on their own lines.
 
