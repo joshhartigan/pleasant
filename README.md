@@ -1,6 +1,7 @@
 ![Pleasant](http://i.imgur.com/leDXgjz.png)
 
-An enjoyable programming language of the future *(read: not implemented yet)*.
+An enjoyable programming language of the future *(read: not implemented yet &mdash;
+plans to be written in literate CoffeeScript)*.
 
 The interpreter for this language is probably going to be created very slowly,
 and the repository is probably going to be mainly made up of markdown files. I
