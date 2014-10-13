@@ -1,9 +1,4 @@
-```
- ____  __    ____   __   ____   __   __ _  ____
-(  _ \(  )  (  __) / _\ / ___) / _\ (  ( \(_  _)
- ) __// (_/\ ) _) /    \\___ \/    \/    /  )(
-(__)  \____/(____)\_/\_/(____/\_/\_/\_)__) (__)
-```
+![Pleasant](http://i.imgur.com/leDXgjz.png)
 
 An enjoyable programming language of the future *(read: not implemented yet)*.
 
