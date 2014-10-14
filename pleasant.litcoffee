@@ -35,7 +35,8 @@ Feed the array, minus the empty (pointless) lines, into a `parse()` function
 
 ## Parsing Functions
 
-- parseFunctionHeader - **See [Readme :: 'Parsing Methods'](https://github.com/joshhartigan/pleasant#parsing-methods)**
+parseFunctionHeader -
+**See ['Parsing Methods'](https://github.com/joshhartigan/pleasant#parsing-methods)**
 
     parseFunctionHeader = (line) ->
       splitLine = line.split " "
@@ -56,7 +57,8 @@ Feed the array, minus the empty (pointless) lines, into a `parse()` function
         for i in [ splitLine.length - 4 .. splitLine.length - 2 ]
           functionArgs.push splitLine[i].replace('(', '').replace(')', '')
 
-- getBlock - **See [Readme :: 'Reading Blocks'](https://github.com/joshhartigan/pleasant#reading-blocks)**
+getBlock -
+**See ['Reading Blocks'](https://github.com/joshhartigan/pleasant#reading-blocks)**
 
     getBlock = (lines, headerIndex) ->
       currentIndex = headerIndex + 1
