@@ -3,20 +3,23 @@
 An enjoyable programming language of the future *(read: not implemented yet &mdash;
 plans to be written in literate CoffeeScript)*.
 
+
+## Contents:
+
+1. [Todo List](#todo-list)
+2. [Introduction](#introduction)
+3. [Partial Implementation](#partial-implementation)
+4. [An Interpreting Program](#an-interpreting-program)
+5. [Parsing Methods](#parsing-methods)
+6. [Reading Blocks](#reading-blocks)
+
+
 ## Todo List:
 
 1. Read http://www.bayfronttechnologies.com/mc_tutorial.html
-2. Find out about
-   [EBNF](http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form0).
+2. Find out about [EBNF](http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form0).
 3. Sort out function calling syntax.
 4. Read https://docs.python.org/2/reference/grammar.html
-
-
-1. [Introduction](#introduction)
-2. [Partial Implementation](#partial-implementation)
-3. [An Interpreting Program](#an-interpreting-program)
-4. [Parsing Methods](#parsing-methods)
-5. [Reading Blocks](#reading-blocks)
 
 
 ## Introduction
