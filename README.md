@@ -9,6 +9,7 @@ plans to be written in literate CoffeeScript)*.
 2. Find out about
    [EBNF](http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form0).
 3. Sort out function calling syntax.
+4. Read https://docs.python.org/2/reference/grammar.html
 
 
 1. [Introduction](#introduction)
