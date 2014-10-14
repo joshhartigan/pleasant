@@ -3,6 +3,16 @@
 An enjoyable programming language of the future *(read: not implemented yet &mdash;
 plans to be written in literate CoffeeScript)*.
 
+
+1. [Introduction](#introduction)
+2. [Partial Implementation](#partial-implementation)
+3. [An Interpreting Program](#an-interpreting-program)
+4. [Parsing Methods](#parsing-methods)
+5. [Reading Blocks](#reading-blocks)
+
+
+## Introduction
+
 The interpreter for this language is probably going to be created very slowly,
 and the repository is probably going to be mainly made up of markdown files. I
 feel like if I just write down every thought that goes into making **pleasant**
@@ -25,6 +35,13 @@ print y
 
 It looks a bit like CoffeeScript. I haven't written much CoffeeScript, but I
 like the look of its syntax.
+
+
+## Partial Implementation
+
+You can watch a buggy, unfinished and incomplete implementation of **pleasant**
+being slowly written in `pleasant.coffee`, but most of the important stuff is in
+this document.
 
 
 ## An Interpreting Program
@@ -142,6 +159,7 @@ parseFunctionHeader = (line) ->
     for i in [ splitLine.length - 4 .. splitLine.length - 2 ]
       functionArgs.push splitLine[i].replace('(', '').replace(')', '')
 ```
+
 
 ## Reading Blocks
 
