@@ -3,6 +3,8 @@
 An enjoyable programming language of the future *(read: not implemented yet &mdash;
 plans to be written in literate CoffeeScript)*.
 
+This file documents what I'm learning/thinking/doing while trying to implement
+the language. See DESCRIPTION.md for a specification/description of the language.
 
 ## Contents:
 
