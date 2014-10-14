@@ -8,7 +8,7 @@ programming.
 
 ## Dependencies
 
-- `fs`: Fairly obvious, required to read files.
+`fs`: Fairly obvious, required to read files.
 
     fs = require 'fs'
 
