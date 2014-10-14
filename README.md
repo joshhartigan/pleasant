@@ -118,34 +118,27 @@ So, here's the 'rules' for parsing a function definition 'header' in **pleasant*
 
 6. After the `->` string is where the logic of the function begins.
 
-Here's some pseudo-c-like-code that parses a **pleasant** function definition
+Here's some CoffeeScript code that parses a **pleasant** function definition
 header:
 
-```javascript
-function parseFunctionHeader(line) {
-  splitLine = line.split(' ');
+```coffee
+parseFunctionHeader = (line) ->
+  splitLine = line.split " "
 
-  if (
-    !(splitLine[0] && 'fn' && splitLine[2] == '=' && splitLine[last] == '->')
-  ) {
-    return false;
-  }
+  if not splitLine[0] == 'fn' and splitLine[2] == '->'
+    false
 
-  functionName = '';
+  if splitLine.length <= 4
+    false
 
-  if ( !isIdentifier( splitLine[1] ) ) {
-    return false;
-  } else {
-    functionName = splitLine[1];
-  }
+  if isIdentifier splitLine[1]
+    functionName = splitLine[1]
+  else
+    false
 
-  arguments = [];
-  if (splitLine.length > 4) { // if there are any arguments:
-    for (i = 0; i < splitLine.length - 4; i++) {
-      arguments += splitLine[i].replace('(', '').replace(')', '');
-    }
-  }
-}
+  functionArgs = []
+  for i in [ splitLine.length - 4 .. splitLine.length - 2 ]
+    functionArgs.push splitLine[i].replace('(', '').replace(')', '')
+
 ```
-
 
