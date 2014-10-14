@@ -129,7 +129,7 @@ parseFunctionHeader = (line) ->
   if not splitLine[0] == 'fn' and splitLine[2] == '->'
     false
 
-  if splitLine.length <= 4
+  if splitLine.length < 4
     false
 
   if isIdentifier splitLine[1]
@@ -138,8 +138,27 @@ parseFunctionHeader = (line) ->
     false
 
   functionArgs = []
-  for i in [ splitLine.length - 4 .. splitLine.length - 2 ]
-    functionArgs.push splitLine[i].replace('(', '').replace(')', '')
+  if splitLine.length > 4
+    for i in [ splitLine.length - 4 .. splitLine.length - 2 ]
+      functionArgs.push splitLine[i].replace('(', '').replace(')', '')
+```
 
+## Reading Blocks
+
+We've read and parsed the header of a function, but the most important part of a
+function is the code that it executes. The method I'll use for getting all the
+lines in a block from `->` to `end` is simply appending each line to an array
+&mdash; the array can be parsed at any time later on when the function is
+called.
+
+Let's have `headerIndex` as the line number of the function header, and
+`currentIndex` as the current line number. We'll use some CoffeeScript code to
+read until the line at `currentIndex` matches `'end'`.
+
+```coffee
+currentIndex = headerIndex + 1
+while lines[currentIndex] != 'end'
+  blockArray.push lines[currentIndex]
+  currentIndex++
 ```
 
