@@ -3,6 +3,13 @@
 An enjoyable programming language of the future *(read: not implemented yet &mdash;
 plans to be written in literate CoffeeScript)*.
 
+## Todo List:
+
+1. Read http://www.bayfronttechnologies.com/mc_tutorial.html
+2. Find out about
+   [EBNF](http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form0).
+3. Sort out function calling syntax.
+
 
 1. [Introduction](#introduction)
 2. [Partial Implementation](#partial-implementation)
