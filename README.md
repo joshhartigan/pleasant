@@ -4,7 +4,9 @@ An enjoyable programming language of the future *(read: not implemented yet &mda
 plans to be written in literate CoffeeScript)*.
 
 This file documents what I'm learning/thinking/doing while trying to implement
-the language. See DESCRIPTION.md for a specification/description of the language.
+the language. It's mainly for me to remember things that I'm learning, and see
+how I'm improving.
+See DESCRIPTION.md for a specification/description of the language.
 
 ## Contents:
 
@@ -14,6 +16,7 @@ the language. See DESCRIPTION.md for a specification/description of the language
 4. [An Interpreting Program](#an-interpreting-program)
 5. [Parsing Methods](#parsing-methods)
 6. [Reading Blocks](#reading-blocks)
+7. [Grammar](#grammar)
 
 
 ## Todo List:
@@ -192,4 +195,64 @@ while lines[currentIndex] != 'end'
   blockArray.push lines[currentIndex]
   currentIndex++
 ```
+
+
+## Grammar
+
+A language needs grammar. Grammar can be expressed in [BNF](http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form),
+Backus-Naur Form. Here's a BNF grammar for a tiny-weeny version of the English
+language (based upon a grammar in Udacity's CS101 course):
+
+```coffee
+Sentence -> Subject Verb Object
+
+Subject -> Noun
+Object -> Noun
+
+Verb -> 'program'
+Verb -> 'walk to'
+
+Noun -> 'programmers'
+Noun -> 'idiots'
+Noun -> 'snakes'
+```
+
+In the language defined by this grammar, all the possible `Sentence`s are listed
+below:
+
+```
+programmers program programmers
+programmers program idiots
+programmers program snakes
+programmers walk to programmers
+programmers walk to idiots
+programmers walk to snakes
+
+idiots program programmers
+idiots program idiots
+idiots program snakes
+idiots walk to programmers
+idiots walk to idiots
+idiots walk to snakes
+
+snakes program programmers
+snakes program idiots
+snakes program snakes
+snakes walk to programmers
+snakes walk to idiots
+snakes walk to snakes
+```
+
+Obviously it isn't a useful language in any way.
+
+In our grammar, we have **terminals** and **non-terminals**, amongst other
+things. The **non-terminals** in our tiny-English grammar are things like
+`Sentence`, `Subject`, `Noun`, etc. They are things that are 'built up' of other
+terminals and non-terminals *(if you see the `->` as a sign meaning 'is made
+of')*. The **terminals** are things that are *constant*, such as `'idiots'` or
+`'program'`. Terminals are never seen on the left side of an arrow `->`, because
+they are built up of their exact value, and nothing else.
+
+Let's parse - by ourselves, not via a program - the `Sentence` rule from our
+tiny-English grammar.
 
