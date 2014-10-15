@@ -203,7 +203,7 @@ A language needs grammar. Grammar can be expressed in [BNF](http://en.wikipedia.
 Backus-Naur Form. Here's a BNF grammar for a tiny-weeny version of the English
 language (based upon a grammar in Udacity's CS101 course):
 
-```coffee
+```java
 Sentence -> Subject Verb Object
 
 Subject -> Noun
@@ -253,6 +253,44 @@ of')*. The **terminals** are things that are *constant*, such as `'idiots'` or
 `'program'`. Terminals are never seen on the left side of an arrow `->`, because
 they are built up of their exact value, and nothing else.
 
+### Parsing BNF
+
 Let's parse - by ourselves, not via a program - the `Sentence` rule from our
-tiny-English grammar.
+tiny-English grammar. Here it is:
+
+`Subject Verb Object`
+
+To parse it, we'll choose the first non-terminal (`Subject`), and continue to
+parse that:
+
+`Subject -> Noun` - now we need to parse noun:
+
+```java
+Noun -> 'programmers'
+Noun -> 'idiots'
+Noun -> 'snakes'
+```
+
+... so the `Subject` of our sentence can be any of `'programmers'`, `'idiots'`,
+or `'snakes'`. Let's visualise it:
+
+![Visualisation](http://i.imgur.com/pdUfZz9.png)
+
+Next `Verb` is parsed, which is easy, since it goes straight to 2 terminals:
+
+```java
+Verb -> 'program'
+Verb -> 'walk to'
+```
+
+... so the `Verb` of our sentence can be any of `'program'` or `'walk to'`.
+
+Finally, the `Object` is parsed, which works exactly like the `Subject`, so it
+too can be any of `'programmers'`, `'idiots'`, or `'snakes'`.
+
+These steps are called **derivation**, and it's how we get to all the different
+possibilities of texts that conform to a grammar. In 'tiny-English', there are 6
+terminals, and 18 possible sentences. So imagine how many different possible
+strings are correct in a programming language - say, C++ - or a human language -
+say Spanish. (The answer is &infin;)
 
