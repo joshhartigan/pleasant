@@ -44,15 +44,15 @@ addTwoNumbers 12, 23 // => 35
 addTwoNumbers cube 5, 2 // => 127
 ```
 
-Functions can be passed around like any other variable.
-An example of this is as a function parameter:
+Functions can be passed around like any other variable, when prefixed with an
+underscore `_`. An example of this is as a function parameter:
 
 ```
 fn apply = (f, a, b) ->
   f a
 end
 
-apply addTwoNumbers, 4, 2 // => 6
+apply _addTwoNumbers, 4, 2 // => 6
 ```
 
 As in JavaScript, if a parameter isn't specified in a function call, it is given
