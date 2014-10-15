@@ -19,7 +19,7 @@ the language. See DESCRIPTION.md for a specification/description of the language
 ## Todo List:
 
 1. Read http://www.bayfronttechnologies.com/mc_tutorial.html
-2. Find out about [EBNF](http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form0).
+2. Find out about [EBNF](http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form).
 3. Sort out function calling syntax.
 4. Read https://docs.python.org/2/reference/grammar.html
 
