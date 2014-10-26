@@ -199,22 +199,25 @@ while lines[currentIndex] != 'end'
 
 ## Grammar
 
-A language needs grammar. Grammar can be expressed in [BNF](http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form),
-Backus-Naur Form. Here's a BNF grammar for a tiny-weeny version of the English
+A language needs grammar. Grammar can be expressed in
+[Backus Naur Form](http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form), or
+[Extended BNF](http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form).
+I'll be using BNF because of its advantages over BNF.
+Here's a grammar for a tiny-weeny version of the English
 language (based upon a grammar in Udacity's CS101 course):
 
 ```java
-Sentence -> Subject Verb Object
+Sentence = Subject Verb Object
 
-Subject -> Noun
-Object -> Noun
+Subject = Noun
+Object = Noun
 
-Verb -> 'program'
-Verb -> 'walk to'
+Verb = 'program'
+Verb = 'walk to'
 
-Noun -> 'programmers'
-Noun -> 'idiots'
-Noun -> 'snakes'
+Noun = 'programmers'
+Noun = 'idiots'
+Noun = 'snakes'
 ```
 
 In the language defined by this grammar, all the possible `Sentence`s are listed
@@ -248,12 +251,12 @@ Obviously it isn't a useful language in any way.
 In our grammar, we have **terminals** and **non-terminals**, amongst other
 things. The **non-terminals** in our tiny-English grammar are things like
 `Sentence`, `Subject`, `Noun`, etc. They are things that are 'built up' of other
-terminals and non-terminals *(if you see the `->` as a sign meaning 'is made
+terminals and non-terminals *(if you see the `=` as a sign meaning 'is made
 of')*. The **terminals** are things that are *constant*, such as `'idiots'` or
-`'program'`. Terminals are never seen on the left side of an arrow `->`, because
+`'program'`. Terminals are never seen on the left side of an `=`, because
 they are built up of their exact value, and nothing else.
 
-### Parsing BNF
+### Parsing EBNF
 
 Let's parse - by ourselves, not via a program - the `Sentence` rule from our
 tiny-English grammar. Here it is:
@@ -263,12 +266,12 @@ tiny-English grammar. Here it is:
 To parse it, we'll choose the first non-terminal (`Subject`), and continue to
 parse that:
 
-`Subject -> Noun` - now we need to parse noun:
+`Subject = Noun` - now we need to parse noun:
 
-```java
-Noun -> 'programmers'
-Noun -> 'idiots'
-Noun -> 'snakes'
+```coffee
+Noun = 'programmers'
+Noun = 'idiots'
+Noun = 'snakes'
 ```
 
 ... so the `Subject` of our sentence can be any of `'programmers'`, `'idiots'`,
@@ -278,9 +281,9 @@ or `'snakes'`. Let's visualise it:
 
 Next `Verb` is parsed, which is easy, since it goes straight to 2 terminals:
 
-```java
-Verb -> 'program'
-Verb -> 'walk to'
+```coffee
+Verb = 'program'
+Verb = 'walk to'
 ```
 
 ... so the `Verb` of our sentence can be any of `'program'` or `'walk to'`.
@@ -293,4 +296,44 @@ possibilities of texts that conform to a grammar. In 'tiny-English', there are 6
 terminals, and 18 possible sentences. So imagine how many different possible
 strings are correct in a programming language - say, C++ - or a human language -
 say Spanish. (The answer is &infin;)
+
+
+## A Grammar for Mathematics
+
+If we wanted to parse (and maybe eventually compile / interpret) mathematical
+expressions, what would a EBNF grammar for them look like?
+
+Let's take some example expressions:
+
+```
+3 + 2 * (4 - 2)
+2 * (9 - 3) + (6 + 5)
+-2 / 4 * 16
+```
+
+The 'building block' elements of these expressions shouldn't be too hard to put
+into grammar form.
+
+Operators could work like this:
+```coffee
+Operator = '+' # addition
+Operator = '-' # subtraction
+Operator = '*' # multiplication
+Operator = '/' # division
+Operator = '^' # exponentiation
+```
+
+And numbers (including negative numbers, and rational numbers):
+
+```coffee
+Digit  = '0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9'
+Sign   = '+'|'-'
+Number = [Sign] {Digit} # optional sign, any number of digits
+```
+
+
+
+
+
+
 
