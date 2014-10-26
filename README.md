@@ -17,6 +17,7 @@ See DESCRIPTION.md for a specification/description of the language.
 5. [Parsing Methods](#parsing-methods)
 6. [Reading Blocks](#reading-blocks)
 7. [Grammar](#grammar)
+8. [A Grammar for Mathematics](#a-grammar-for-mathematics)
 
 
 ## Todo List:
