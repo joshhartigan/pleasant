@@ -1,0 +1,34 @@
+TERMINATO R = "\n";
+OPEN_BRACE  = "{";
+CLOSE_BRACE = "}";
+ASSIGN_OPER = "=";
+
+
+Body       = Line
+           | Body TERMINATOR Line
+           | Body TERMINATOR;
+Line       = Expression
+           | Statement;
+Statement  = Return
+           | STATEMENT;
+Expression = Value
+           | Invocation
+           | Code
+           | Operation
+           | Assign
+           | If
+           | Try
+           | While
+           | For
+           | Switch
+           | Class;
+Block      = OPEN_BRACE, Body, CLOSE_BRACE;
+Identifier = IDENTIFIER;
+Literal    = NUMBER
+           | STRING
+           | BOOL
+           | NULL;
+Assign     = Assignable, ASSIGN_OPER, Expression
+           | Assignable, ASSIGN_OPER, TERMINATOR, Expression;
+Return     = RETURN, Expression;
+
