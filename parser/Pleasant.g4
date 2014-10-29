@@ -6,24 +6,30 @@ WhiteSpaces
   : [ \t\u000B\u000C\u0020\u00A0]+ -> channel(HIDDEN) ;
 
 program
-  : line+ ;
+  : line+
+  | EOF ;
 
 line
   : statement eos
+  | '\n'
   | functionDeclaration ;
 
 statement
   : block
-  | variableStatement
+  | callStatement eos
+  | variableStatement eos
   | ifStatement
-  | returnStatement
-  | callStatement ;
+  | returnStatement eos
+  | chain '.' statement ;
 
 block
-  : '{' statementMultiple? '}' ;
+  : '{' '\n'? statementGroup? '}' '\n'? ;
 
-statementMultiple
+statementGroup
   : statement+ ;
+
+chain
+  : Identifier ;
 
 //----VARIABLE RULES----//
 
@@ -44,28 +50,25 @@ Identifier
 //----IF STATEMENT RULES----//
 
 ifStatement
-  : ifKeyword '(' expressionMultiple ')' statement ( elseKeyword statement)? ;
+  : ifKeyword '(' expressionGroup ')' statement ( elseKeyword statement)? ;
 
 //----RETURN STATEMENT RULES----//
 
 returnStatement
-  : returnKeyword expression? eos ;
+  : returnKeyword expression? ;
 
 //----FUNCTION DECLARATION RULES----//
 
 functionDeclaration
-  : functionKeyword Identifier ( '(' parameterList? ')' )? '{' functionBody '}' ;
+  : functionKeyword Identifier ( '(' parameterList? ')' )? block ;
 
 parameterList
   : Identifier ( ',' Identifier )* ;
 
-functionBody
-  : block? ;
-
 //----EXPRESSION RULES----//
 
 expression
-  : expression '[' expressionMultiple ']'              # BracketedMemberExpression
+  : expression '[' expressionGroup ']'                 # BracketedMemberExpression
   | expression '.' expression                          # DotMemberExpression
   | '!' Identifier                                     # NotExpression
   | expression ( '*' | '/' | '%' ) expression          # MultiplicativeExpression
@@ -76,16 +79,17 @@ expression
   | literal                                            # LiteralExpression
   ;
 
-expressionMultiple
+expressionGroup
   : expression ( ',' expression )* ;
 
 //----ARGUMENT / FUNCTION CALL RULES ----//
 
 callStatement
-  : Identifier '(' arguments ')' ;
+  : Identifier '(' expressionGroup ')'
+  | Identifier emptyArguments ;
 
-arguments
-  : expression ( ',' expression)* ;
+emptyArguments
+  : '()' ;
 
 //----LITERAL RULES----//
 
