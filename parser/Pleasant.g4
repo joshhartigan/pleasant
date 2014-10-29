@@ -16,14 +16,14 @@ line
 
 statement
   : block
-  | callStatement eos
+  | callStatement
   | variableStatement eos
   | ifStatement
   | returnStatement eos
   | chain '.' statement ;
 
 block
-  : '{' '\n'? statementGroup? '}' '\n'? ;
+  : '->' '\n'? statementGroup? 'end' '\n'? ;
 
 statementGroup
   : statement+ ;
@@ -50,7 +50,7 @@ Identifier
 //----IF STATEMENT RULES----//
 
 ifStatement
-  : ifKeyword '(' expressionGroup ')' statement ( elseKeyword statement)? ;
+  : ifKeyword '(' expressionGroup ')' statementGroup ( elseKeyword statementGroup )? ;
 
 //----RETURN STATEMENT RULES----//
 
@@ -77,6 +77,7 @@ expression
   | expression ( '==' | '!=' ) expression              # EqualityExpression
   | expression ( 'and' | 'or' ) expression             # LogicalExpression
   | literal                                            # LiteralExpression
+  | Identifier                                         # IdentifierExpression
   ;
 
 expressionGroup
@@ -85,7 +86,7 @@ expressionGroup
 //----ARGUMENT / FUNCTION CALL RULES ----//
 
 callStatement
-  : Identifier '(' expressionGroup ')'
+  : Identifier '(' expressionGroup ')' eos
   | Identifier emptyArguments ;
 
 emptyArguments
