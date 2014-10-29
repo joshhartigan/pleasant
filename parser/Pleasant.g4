@@ -2,21 +2,25 @@ grammar Pleasant;
 
 //----STRUCTURE RULES----//
 
+WhiteSpaces
+  : [ \t\u000B\u000C\u0020\u00A0]+ -> channel(HIDDEN) ;
+
 program
   : line+ ;
 
 line
-  : statement
+  : statement eos
   | functionDeclaration ;
 
 statement
   : block
   | variableStatement
   | ifStatement
-  | returnStatement ;
+  | returnStatement
+  | callStatement ;
 
 block
-  : '{' statementMultiple '}' ;
+  : '{' statementMultiple? '}' ;
 
 statementMultiple
   : statement+ ;
@@ -24,7 +28,7 @@ statementMultiple
 //----VARIABLE RULES----//
 
 variableStatement
-  : variableDeclarationList eos ;
+  : variableDeclarationList ;
 
 variableDeclarationList
   : variableDeclaration ( ',' variableDeclaration)* ;
@@ -62,7 +66,7 @@ functionBody
 
 expression
   : expression '[' expressionMultiple ']'              # BracketedMemberExpression
-  | Identifier '.' Identifier                          # DotMemberExpression
+  | expression '.' expression                          # DotMemberExpression
   | '!' Identifier                                     # NotExpression
   | expression ( '*' | '/' | '%' ) expression          # MultiplicativeExpression
   | expression ( '+' | '-' ) expression                # AdditiveExpression
@@ -75,12 +79,20 @@ expression
 expressionMultiple
   : expression ( ',' expression )* ;
 
+//----ARGUMENT / FUNCTION CALL RULES ----//
+
+callStatement
+  : Identifier '(' arguments ')' ;
+
+arguments
+  : expression ( ',' expression)* ;
+
 //----LITERAL RULES----//
 
 literal
   : nilLiteral
   | booleanLiteral
-  | StringLiteral
+  | stringLiteral
   | numericLiteral ;
 
 nilLiteral
@@ -89,6 +101,9 @@ nilLiteral
 booleanLiteral
   : 'true'
   | 'false' ;
+
+stringLiteral
+  : StringLiteral ;
 
 StringLiteral
   : '\'' ~['\r\n]* '\'' ;
@@ -104,6 +119,7 @@ Number
 
 eos
   : ';'
+  | ';\n'
   | EOF ;
 
 // keywords:
