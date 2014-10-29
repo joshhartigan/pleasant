@@ -10,13 +10,13 @@ program
   | EOF ;
 
 line
-  : statement eos
+  : statement
   | '\n'
   | functionDeclaration ;
 
 statement
   : block
-  | callStatement
+  | callStatement eos
   | variableStatement eos
   | ifStatement
   | returnStatement eos
@@ -26,7 +26,7 @@ block
   : '->' '\n'? statementGroup? 'end' '\n'? ;
 
 statementGroup
-  : statement+ ;
+  : ( statement )+ ;
 
 chain
   : Identifier ;
@@ -50,7 +50,7 @@ Identifier
 //----IF STATEMENT RULES----//
 
 ifStatement
-  : ifKeyword '(' expressionGroup ')' statementGroup ( elseKeyword statementGroup )? ;
+  : ifKeyword '(' expressionGroup ')' block ( elseKeyword block )? ;
 
 //----RETURN STATEMENT RULES----//
 
@@ -86,7 +86,7 @@ expressionGroup
 //----ARGUMENT / FUNCTION CALL RULES ----//
 
 callStatement
-  : Identifier '(' expressionGroup ')' eos
+  : Identifier '(' expressionGroup ')'
   | Identifier emptyArguments ;
 
 emptyArguments
